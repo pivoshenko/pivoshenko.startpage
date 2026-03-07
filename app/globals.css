@@ -1,0 +1,159 @@
+:root {
+  --rosewater: #f5d7cf;
+  --mauve: #c6a0f6;
+  --blue: #87adf6;
+  --text: #cad4f2;
+  --subtext0: #9fa9c8;
+  --overlay0: #69718b;
+  --surface1: #454d66;
+  --surface0: #323a51;
+  --base: #20273a;
+  --mantle: #1a2031;
+  --crust: #13182a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top right, var(--surface0), var(--crust) 65%);
+  color: var(--text);
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+}
+
+.sidebar {
+  border-right: 1px solid color-mix(in srgb, var(--overlay0) 35%, transparent);
+  padding: 22px 16px;
+  background: color-mix(in srgb, var(--mantle) 82%, black 18%);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.brand-title {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.brand-subtitle {
+  margin: 4px 0 0;
+  color: var(--subtext0);
+  font-size: 12px;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tab {
+  border: 1px solid color-mix(in srgb, var(--overlay0) 40%, transparent);
+  background: var(--surface0);
+  color: var(--text);
+  text-align: left;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: 120ms ease;
+}
+
+.tab:hover {
+  border-color: var(--blue);
+}
+
+.tab.active {
+  border-color: var(--mauve);
+  box-shadow: inset 2px 0 0 var(--mauve);
+}
+
+.status {
+  margin-top: auto;
+  color: var(--subtext0);
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.status a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.workspace {
+  padding: 24px;
+}
+
+.workspace-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: var(--rosewater);
+}
+
+.workspace-header p {
+  margin: 8px 0 0;
+  color: var(--subtext0);
+}
+
+.grid {
+  margin-top: 20px;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.panel {
+  border: 1px solid color-mix(in srgb, var(--overlay0) 35%, transparent);
+  background: color-mix(in srgb, var(--base) 75%, var(--surface1) 25%);
+  padding: 14px;
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mauve);
+}
+
+.panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.panel a {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.panel a:hover {
+  color: var(--blue);
+  border-color: color-mix(in srgb, var(--blue) 65%, transparent);
+}
+
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--overlay0) 35%, transparent);
+  }
+}
