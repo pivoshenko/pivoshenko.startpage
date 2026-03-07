@@ -1,3 +1,4 @@
+import { Github, Linkedin } from "lucide-react";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
@@ -37,7 +38,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="content">{children}</main>
 
           <footer className="site-footer">
-            <div className="site-footer-inner">2026 Volodymyr Pivoshenko</div>
+            <div className="site-footer-inner">
+              <span>2026 Volodymyr Pivoshenko</span>
+              <div className="footer-icons">
+                <a
+                  href="https://github.com/pivoshenko"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                  className="footer-icon-link"
+                >
+                  <Github className="footer-icon" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/pivoshenko"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="footer-icon-link"
+                >
+                  <Linkedin className="footer-icon" />
+                </a>
+              </div>
+            </div>
           </footer>
         </div>
       </body>
