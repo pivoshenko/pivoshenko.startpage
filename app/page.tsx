@@ -1,87 +1,76 @@
-"use client";
+import type React from "react";
+import {
+  Bookmark,
+  Calendar,
+  FolderOpen,
+  Github,
+  Mail,
+  Music2,
+  Newspaper,
+  Search,
+  Tv,
+} from "lucide-react";
 
-import { useEffect, useMemo, useState } from "react";
+type LinkItem = {
+  name: string;
+  url: string;
+  icon: React.ComponentType<{ className?: string }>;
+};
 
-import { tabs } from "@/lib/links";
+const cards: { title: string; links: LinkItem[] }[] = [
+  {
+    title: "bookmarks",
+    links: [
+      { name: "raindrop", url: "https://app.raindrop.io", icon: Bookmark },
+      { name: "musicforprogramming", url: "https://musicforprogramming.net", icon: Music2 },
+      { name: "gmail", url: "https://mail.google.com", icon: Mail },
+      { name: "calendar", url: "https://calendar.google.com", icon: Calendar },
+    ],
+  },
+  {
+    title: "dev",
+    links: [
+      { name: "github", url: "https://github.com", icon: Github },
+      { name: "pivoshenko.dev", url: "https://pivoshenko.dev", icon: Search },
+      { name: "motherduck", url: "https://app.motherduck.com", icon: FolderOpen },
+      { name: "hackernews", url: "https://news.ycombinator.com", icon: Newspaper },
+    ],
+  },
+  {
+    title: "media",
+    links: [
+      { name: "steam", url: "https://store.steampowered.com", icon: Tv },
+      { name: "youtube", url: "https://www.youtube.com", icon: Tv },
+      { name: "pravda", url: "https://www.pravda.com.ua", icon: Newspaper },
+      { name: "wallpapers", url: "https://pivoshenkowallpapers.vercel.app", icon: Bookmark },
+    ],
+  },
+];
 
 export default function HomePage() {
-  const [tabIdx, setTabIdx] = useState(0);
-  const activeTab = tabs[tabIdx];
-  const [now, setNow] = useState("");
-
-  useEffect(() => {
-    const update = () => {
-      setNow(
-        new Date().toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit",
-        }),
-      );
-    };
-
-    update();
-    const id = window.setInterval(update, 30000);
-    return () => window.clearInterval(id);
-  }, []);
-
-  const totalLinks = useMemo(
-    () => activeTab.categories.reduce((acc, category) => acc + category.links.length, 0),
-    [activeTab],
-  );
-
   return (
-    <main className="sp-shell">
-      <header className="topbar">
-        <div className="traffic-lights" aria-hidden>
-          <span />
-          <span />
-          <span />
-        </div>
-        <p className="topbar-title">pivoshenko.startpage</p>
-        <a href="https://pivoshenko.dev" target="_blank" rel="noreferrer" className="topbar-link">
-          pivoshenko.dev
-        </a>
-      </header>
-
-      <section className="command-row">
-        <div className="command-palette">jump to link... (cmd+k)</div>
-        <div className="meta">
-          <span>{activeTab.name}</span>
-          <span>{totalLinks} links</span>
-          <span>{now}</span>
-        </div>
-      </section>
-
-      <nav className="workspace-tabs" aria-label="Workspaces">
-        {tabs.map((tab, idx) => (
-          <button
-            key={tab.name}
-            className={idx === tabIdx ? "workspace-tab active" : "workspace-tab"}
-            onClick={() => setTabIdx(idx)}
-            type="button"
-          >
-            {tab.name}
-          </button>
-        ))}
-      </nav>
-
-      <section className="category-grid" aria-label="Categories">
-        {activeTab.categories.map((category) => (
-          <article className="category-card" key={category.name}>
-            <h2>{category.name}</h2>
-            <ul>
-              {category.links.map((link) => (
+    <section className="cards-grid" aria-label="Quick links">
+      {cards.map((card) => (
+        <article key={card.title} className="card">
+          <h2>{card.title}</h2>
+          <ul>
+            {card.links.map((link) => {
+              const Icon = link.icon;
+              return (
                 <li key={link.url}>
                   <a href={link.url} target="_blank" rel="noreferrer">
-                    {link.name}
-                    <span className="arrow">↗</span>
+                    <span className="link-left">
+                      <Icon className="link-icon" />
+                      {link.name}
+                    </span>
+                    <span className="link-arrow">↗</span>
                   </a>
                 </li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </section>
-    </main>
+              );
+            })}
+          </ul>
+        </article>
+      ))}
+    </section>
   );
 }
