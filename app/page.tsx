@@ -1,73 +1,86 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { tabs } from "@/lib/links";
 
 export default function HomePage() {
   const [tabIdx, setTabIdx] = useState(0);
   const activeTab = tabs[tabIdx];
+  const [now, setNow] = useState("");
 
-  const now = useMemo(
-    () =>
-      new Date().toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-    [],
+  useEffect(() => {
+    const update = () => {
+      setNow(
+        new Date().toLocaleTimeString("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      );
+    };
+
+    update();
+    const id = window.setInterval(update, 30000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const totalLinks = useMemo(
+    () => activeTab.categories.reduce((acc, category) => acc + category.links.length, 0),
+    [activeTab],
   );
 
   return (
-    <main className="shell">
-      <aside className="sidebar">
-        <div className="brand">
-          <p className="brand-title">pivoshenko.startpage</p>
-          <p className="brand-subtitle">morok theme</p>
+    <main className="sp-shell">
+      <header className="topbar">
+        <div className="traffic-lights" aria-hidden>
+          <span />
+          <span />
+          <span />
         </div>
+        <p className="topbar-title">pivoshenko.startpage</p>
+        <a href="https://pivoshenko.dev" target="_blank" rel="noreferrer" className="topbar-link">
+          pivoshenko.dev
+        </a>
+      </header>
 
-        <nav className="tabs" aria-label="Workspaces">
-          {tabs.map((tab, idx) => (
-            <button
-              key={tab.name}
-              className={idx === tabIdx ? "tab active" : "tab"}
-              onClick={() => setTabIdx(idx)}
-              type="button"
-            >
-              {tab.name}
-            </button>
-          ))}
-        </nav>
-
-        <div className="status">
-          <p>{now}</p>
-          <a href="https://startpage.pivoshenko.dev" target="_blank" rel="noreferrer">
-            startpage.pivoshenko.dev
-          </a>
+      <section className="command-row">
+        <div className="command-palette">jump to link... (cmd+k)</div>
+        <div className="meta">
+          <span>{activeTab.name}</span>
+          <span>{totalLinks} links</span>
+          <span>{now}</span>
         </div>
-      </aside>
+      </section>
 
-      <section className="workspace">
-        <header className="workspace-header">
-          <h1>{activeTab.name}</h1>
-          <p>Minimal links. Fast access. No clutter.</p>
-        </header>
+      <nav className="workspace-tabs" aria-label="Workspaces">
+        {tabs.map((tab, idx) => (
+          <button
+            key={tab.name}
+            className={idx === tabIdx ? "workspace-tab active" : "workspace-tab"}
+            onClick={() => setTabIdx(idx)}
+            type="button"
+          >
+            {tab.name}
+          </button>
+        ))}
+      </nav>
 
-        <div className="grid">
-          {activeTab.categories.map((category) => (
-            <article className="panel" key={category.name}>
-              <h2>{category.name}</h2>
-              <ul>
-                {category.links.map((link) => (
-                  <li key={link.url}>
-                    <a href={link.url} target="_blank" rel="noreferrer">
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
+      <section className="category-grid" aria-label="Categories">
+        {activeTab.categories.map((category) => (
+          <article className="category-card" key={category.name}>
+            <h2>{category.name}</h2>
+            <ul>
+              {category.links.map((link) => (
+                <li key={link.url}>
+                  <a href={link.url} target="_blank" rel="noreferrer">
+                    {link.name}
+                    <span className="arrow">↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </section>
     </main>
   );
