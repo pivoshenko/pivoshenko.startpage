@@ -21,10 +21,16 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: radial-gradient(1200px 700px at 10% -10%, #1a1b20 0%, var(--bg) 55%);
+  background: var(--bg);
   color: var(--text);
   font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
   min-height: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  overscroll-behavior-y: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 a {
@@ -199,12 +205,50 @@ a {
 }
 
 @media (max-width: 720px) {
+  .sp-shell {
+    margin: 0;
+    padding: 10px 10px 18px;
+  }
+
+  .topbar {
+    grid-template-columns: auto 1fr;
+    padding: 10px 11px;
+  }
+
+  .topbar-link {
+    display: none;
+  }
+
   .command-row {
     grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .command-palette,
+  .meta {
+    min-height: 38px;
   }
 
   .meta {
     justify-content: space-between;
     padding: 10px;
+  }
+
+  .workspace-tabs {
+    gap: 6px;
+  }
+
+  .workspace-tab {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .category-card {
+    min-height: 0;
   }
 }
