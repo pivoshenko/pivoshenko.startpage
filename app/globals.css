@@ -1,16 +1,16 @@
 :root {
-  --bg: #0b0b0c;
-  --panel: #111214;
-  --panel-2: #16171a;
-  --border: #2a2c31;
-  --text: #e7e7ea;
-  --muted: #9a9ca5;
+  /* Match pivoshenko.dev / wallpapers dark stone system */
+  --bg: #000000;
+  --panel: #0c0a09;
+  --panel-2: #111111;
+  --border: #292524;
+  --text: #f5f5f4;
+  --muted: #a8a29e;
+  --muted-2: #78716c;
 
-  /* morok accents */
-  --rosewater: #f5d7cf;
-  --blue: #87adf6;
-  --mauve: #c6a0f6;
-  --teal: #89d3c8;
+  /* very subtle accents only */
+  --accent: #e7e5e4;
+  --accent-soft: #d6d3d1;
 }
 
 * {
@@ -49,7 +49,7 @@ a {
   align-items: center;
   gap: 14px;
   border: 1px solid var(--border);
-  background: linear-gradient(180deg, #17181c, #121317);
+  background: linear-gradient(180deg, #141414, #0d0d0d);
   padding: 11px 14px;
 }
 
@@ -64,22 +64,16 @@ a {
   border-radius: 999px;
 }
 
-.traffic-lights span:nth-child(1) {
-  background: #f87666;
-}
-
-.traffic-lights span:nth-child(2) {
-  background: #f7d154;
-}
-
+.traffic-lights span:nth-child(1),
+.traffic-lights span:nth-child(2),
 .traffic-lights span:nth-child(3) {
-  background: #51cf66;
+  background: #57534e;
 }
 
 .topbar-title {
   margin: 0;
   font-size: 13px;
-  color: var(--rosewater);
+  color: var(--accent);
   font-weight: 700;
   letter-spacing: 0.02em;
 }
@@ -91,7 +85,7 @@ a {
 }
 
 .topbar-link:hover {
-  color: var(--blue);
+  color: var(--accent-soft);
 }
 
 .command-row {
@@ -144,12 +138,12 @@ a {
 
 .workspace-tab:hover {
   color: var(--text);
-  border-color: #3a3e48;
+  border-color: #44403c;
 }
 
 .workspace-tab.active {
-  background: color-mix(in srgb, var(--mauve) 16%, var(--panel) 84%);
-  border-color: color-mix(in srgb, var(--mauve) 40%, var(--border));
+  background: #1c1917;
+  border-color: #57534e;
   color: var(--text);
 }
 
@@ -171,7 +165,7 @@ a {
   font-size: 11px;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--muted);
   padding: 12px 12px 11px;
   border-bottom: 1px solid var(--border);
 }
@@ -188,15 +182,15 @@ a {
   justify-content: space-between;
   text-decoration: none;
   font-size: 13px;
-  color: #d9dbe2;
+  color: #d6d3d1;
   padding: 9px 8px;
   border: 1px solid transparent;
 }
 
 .category-card li a:hover {
-  background: #191b20;
-  border-color: #2f3340;
-  color: var(--blue);
+  background: #171412;
+  border-color: #44403c;
+  color: var(--text);
 }
 
 .arrow {
