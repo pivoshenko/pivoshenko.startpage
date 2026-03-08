@@ -1,4 +1,16 @@
 import { tabs } from '@/lib/links'
+import {
+  Bookmark,
+  Briefcase,
+  Code2,
+  Flag,
+  Gamepad2,
+  Link2,
+  MessageCircle,
+  Newspaper,
+  PlayCircle,
+  type LucideIcon,
+} from 'lucide-react'
 
 export default function HomePage() {
   const categories = tabs.flatMap((tab) => tab.categories)
@@ -11,7 +23,7 @@ export default function HomePage() {
           className="border border-ui bg-white dark:bg-stone-950"
         >
           <h3 className="type-label fg-subtle px-3 py-3 border-b border-ui flex items-center gap-2">
-            <span aria-hidden="true">{getCategoryIcon(category.name)}</span>
+            <CategoryIcon name={category.name} />
             {category.name}
           </h3>
           <ul className="p-1 space-y-1">
@@ -24,12 +36,6 @@ export default function HomePage() {
                   className="w-full flex items-center justify-between px-2 py-2 type-ui fg-secondary hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors"
                 >
                   <span className="flex items-center gap-2">
-                    <span
-                      aria-hidden="true"
-                      className="w-5 h-5 rounded-sm border border-ui inline-flex items-center justify-center type-meta fg-muted"
-                    >
-                      {link.name.charAt(0).toUpperCase()}
-                    </span>
                     <span>{link.name}</span>
                   </span>
                   <span className="type-meta fg-muted">↗</span>
@@ -43,27 +49,32 @@ export default function HomePage() {
   )
 }
 
-function getCategoryIcon(name: string): string {
+function CategoryIcon({ name }: { name: string }) {
+  const Icon = getCategoryIcon(name)
+  return <Icon aria-hidden="true" className="w-3.5 h-3.5" />
+}
+
+function getCategoryIcon(name: string): LucideIcon {
   switch (name) {
     case 'bookmarks':
-      return '🔖'
+      return Bookmark
     case 'workspace':
-      return '💼'
+      return Briefcase
     case 'media':
-      return '📰'
+      return Newspaper
     case 'development':
-      return '💻'
+      return Code2
     case 'challenges':
-      return '🏁'
+      return Flag
     case 'resources':
-      return '📚'
+      return Bookmark
     case 'social':
-      return '💬'
+      return MessageCircle
     case 'gaming':
-      return '🎮'
+      return Gamepad2
     case 'video':
-      return '🎬'
+      return PlayCircle
     default:
-      return '•'
+      return Link2
   }
 }
