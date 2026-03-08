@@ -1,14 +1,14 @@
 # pivoshenko.startpage
 
-Minimal, elegant startpage built with Next.js.
+<p align="center">
+  <a href="https://stand-with-ukraine.pp.ua/">
+    <img alt="StandWithUkraine" src="https://img.shields.io/badge/Support-Ukraine-FFC93C?style=flat-square&labelColor=07689F">
+  </a>
+</p>
 
-## Development
+- [pivoshenko.startpage](#pivoshenkostartpage)
+  - [Overview](#overview)
 
-```bash
-pnpm install
-pnpm dev
-```
+## Overview
 
-## Deployment
-
-Deploy on Vercel and attach domain `startpage.pivoshenko.dev`.
+A minimal and fast personal startpage with curated quick links for daily browsing, development, and media.
