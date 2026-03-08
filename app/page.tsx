@@ -20,7 +20,7 @@ export default function HomePage() {
       {categories.map((category) => (
         <article
           key={category.name}
-          className="border border-ui bg-white dark:bg-stone-950"
+          className="overflow-hidden rounded border border-ui bg-white dark:bg-stone-950"
         >
           <h3 className="type-label fg-subtle px-3 py-3 border-b border-ui flex items-center gap-2">
             <CategoryIcon name={category.name} />
@@ -33,7 +33,7 @@ export default function HomePage() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-between px-2 py-2 type-ui fg-secondary hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors"
+                  className="w-full rounded flex items-center justify-between px-2 py-2 type-ui fg-secondary hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors"
                 >
                   <span className="flex items-center gap-2">
                     <span>{link.name}</span>

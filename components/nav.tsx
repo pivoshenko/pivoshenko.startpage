@@ -19,7 +19,7 @@ export function Nav() {
             href="https://pivoshenko.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="type-ui fg-subtle hover-primary transition-colors"
+            className="type-ui px-2 py-1 rounded fg-subtle hover-primary transition-colors"
           >
             Blog
           </a>
@@ -27,7 +27,7 @@ export function Nav() {
             href="https://pivoshenkowallpapers.vercel.app"
             target="_blank"
             rel="noopener noreferrer"
-            className="type-ui fg-subtle hover-primary transition-colors"
+            className="type-ui px-2 py-1 rounded fg-subtle hover-primary transition-colors"
           >
             Wallpapers
           </a>
