@@ -24,6 +24,14 @@ export function Nav() {
             Blog
           </a>
           <a
+            href="https://pivoshenko.theme"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="type-ui px-2 py-1 rounded fg-subtle hover-primary transition-colors"
+          >
+            Theme
+          </a>
+          <a
             href="https://pivoshenkowallpapers.vercel.app"
             target="_blank"
             rel="noopener noreferrer"
