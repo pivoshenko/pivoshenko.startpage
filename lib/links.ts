@@ -66,7 +66,6 @@ export const tabs: WorkspaceTab[] = [
             name: 'uber engineering',
             url: 'https://www.uber.com/en-GB/blog/london/engineering',
           },
-          { name: 'pivoshenko.dev', url: 'https://www.pivoshenko.dev' },
         ],
       },
     ],
@@ -85,10 +84,6 @@ export const tabs: WorkspaceTab[] = [
       {
         name: 'gaming',
         links: [
-          {
-            name: 'wallpapers',
-            url: 'https://pivoshenkowallpapers.vercel.app',
-          },
           { name: 'steam', url: 'https://store.steampowered.com' },
           { name: 'epic', url: 'https://store.epicgames.com' },
           { name: 'nintendo', url: 'https://store.nintendo.co.uk' },
