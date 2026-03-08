@@ -4,7 +4,7 @@ export type WorkspaceTab = { name: string; categories: Category[] }
 
 export const tabs: WorkspaceTab[] = [
   {
-    name: 'myself',
+    name: 'row-1',
     categories: [
       {
         name: 'bookmarks',
@@ -19,6 +19,7 @@ export const tabs: WorkspaceTab[] = [
       {
         name: 'workspace',
         links: [
+          { name: 'linear', url: 'https://linear.app' },
           { name: 'gmail', url: 'https://mail.google.com' },
           { name: 'calendar', url: 'https://calendar.google.com' },
           { name: 'sheets', url: 'https://docs.google.com/spreadsheets' },
@@ -26,39 +27,37 @@ export const tabs: WorkspaceTab[] = [
         ],
       },
       {
-        name: 'media',
+        name: 'platforms',
         links: [
-          { name: 'pravda', url: 'https://www.pravda.com.ua' },
-          { name: 'mil.in.ua', url: 'https://mil.in.ua' },
-          { name: 'kutok', url: 'https://kutok.io' },
-          { name: 'grnt', url: 'https://grnt.media' },
+          { name: 'cloudflare', url: 'https://dash.cloudflare.com' },
+          { name: 'hetzner', url: 'https://console.hetzner.com' },
+          { name: 'tailscale', url: 'https://login.tailscale.com' },
+          { name: 'motherduck', url: 'https://app.motherduck.com' },
+          { name: 'vercel', url: 'https://vercel.com' },
         ],
       },
     ],
   },
   {
-    name: 'dev',
+    name: 'row-2',
     categories: [
       {
         name: 'development',
         links: [
           { name: 'github', url: 'https://github.com' },
-          { name: 'stackoverflow', url: 'https://stackoverflow.com' },
-          { name: 'motherduck', url: 'https://app.motherduck.com' },
-          { name: 'colab', url: 'https://colab.research.google.com' },
-        ],
-      },
-      {
-        name: 'challenges',
-        links: [
           { name: 'kaggle', url: 'https://www.kaggle.com' },
           { name: 'leetcode', url: 'https://leetcode.com' },
           { name: 'exercism', url: 'https://exercism.org' },
-          { name: 'aoc', url: 'https://adventofcode.com' },
         ],
       },
       {
-        name: 'resources',
+        name: 'tech leads',
+        links: [
+          { name: 'pragmaticengineer', url: 'https://blog.pragmaticengineer.com' },
+        ],
+      },
+      {
+        name: 'tech blogs',
         links: [
           { name: 'dou', url: 'https://dou.ua' },
           { name: 'hackernews', url: 'https://news.ycombinator.com' },
@@ -66,36 +65,14 @@ export const tabs: WorkspaceTab[] = [
             name: 'uber engineering',
             url: 'https://www.uber.com/en-GB/blog/london/engineering',
           },
-        ],
-      },
-    ],
-  },
-  {
-    name: 'chill',
-    categories: [
-      {
-        name: 'social',
-        links: [
-          { name: 'telegram', url: 'https://web.telegram.org' },
-          { name: 'facebook', url: 'https://www.facebook.com' },
-          { name: 'reddit', url: 'https://www.reddit.com/r/unixporn' },
-        ],
-      },
-      {
-        name: 'gaming',
-        links: [
-          { name: 'steam', url: 'https://store.steampowered.com' },
-          { name: 'epic', url: 'https://store.epicgames.com' },
-          { name: 'nintendo', url: 'https://store.nintendo.co.uk' },
-        ],
-      },
-      {
-        name: 'video',
-        links: [
-          { name: 'anilist', url: 'https://anilist.co/home' },
-          { name: 'youtube', url: 'https://www.youtube.com' },
-          { name: 'patreon', url: 'https://www.patreon.com' },
-          { name: 'kyivstar tv', url: 'https://tv.kyivstar.ua' },
+          {
+            name: 'netflix techblog',
+            url: 'https://netflixtechblog.com',
+          },
+          {
+            name: 'spotify engineering',
+            url: 'https://engineering.atspotify.com',
+          }
         ],
       },
     ],

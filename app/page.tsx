@@ -9,6 +9,7 @@ import {
   MessageCircle,
   Newspaper,
   PlayCircle,
+  Users,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -60,10 +61,16 @@ function getCategoryIcon(name: string): LucideIcon {
       return Bookmark
     case 'workspace':
       return Briefcase
+    case 'platforms':
+      return Briefcase
     case 'media':
       return Newspaper
     case 'development':
       return Code2
+    case 'tech leads':
+      return Users
+    case 'tech blogs':
+      return Newspaper
     case 'challenges':
       return Flag
     case 'resources':
