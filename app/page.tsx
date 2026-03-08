@@ -1,76 +1,49 @@
-import type React from "react";
-import {
-  Bookmark,
-  Calendar,
-  FolderOpen,
-  Github,
-  Mail,
-  Music2,
-  Newspaper,
-  Search,
-  Tv,
-} from "lucide-react";
-
-type LinkItem = {
-  name: string;
-  url: string;
-  icon: React.ComponentType<{ className?: string }>;
-};
-
-const cards: { title: string; links: LinkItem[] }[] = [
-  {
-    title: "bookmarks",
-    links: [
-      { name: "raindrop", url: "https://app.raindrop.io", icon: Bookmark },
-      { name: "musicforprogramming", url: "https://musicforprogramming.net", icon: Music2 },
-      { name: "gmail", url: "https://mail.google.com", icon: Mail },
-      { name: "calendar", url: "https://calendar.google.com", icon: Calendar },
-    ],
-  },
-  {
-    title: "dev",
-    links: [
-      { name: "github", url: "https://github.com", icon: Github },
-      { name: "pivoshenko.dev", url: "https://pivoshenko.dev", icon: Search },
-      { name: "motherduck", url: "https://app.motherduck.com", icon: FolderOpen },
-      { name: "hackernews", url: "https://news.ycombinator.com", icon: Newspaper },
-    ],
-  },
-  {
-    title: "media",
-    links: [
-      { name: "steam", url: "https://store.steampowered.com", icon: Tv },
-      { name: "youtube", url: "https://www.youtube.com", icon: Tv },
-      { name: "pravda", url: "https://www.pravda.com.ua", icon: Newspaper },
-      { name: "wallpapers", url: "https://pivoshenkowallpapers.vercel.app", icon: Bookmark },
-    ],
-  },
-];
+import { tabs } from '@/lib/links'
 
 export default function HomePage() {
   return (
-    <section className="cards-grid" aria-label="Quick links">
-      {cards.map((card) => (
-        <article key={card.title} className="card">
-          <h2>{card.title}</h2>
-          <ul>
-            {card.links.map((link) => {
-              const Icon = link.icon;
-              return (
-                <li key={link.url}>
-                  <a href={link.url} target="_blank" rel="noreferrer">
-                    <span className="link-left">
-                      <Icon className="link-icon" />
-                      {link.name}
-                    </span>
-                    <span className="link-arrow">↗</span>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </article>
-      ))}
-    </section>
-  );
+    <div className="space-y-10">
+      <section className="space-y-4">
+        <h1 className="type-heading fg-primary">Quick Links</h1>
+        <p className="type-body fg-body max-w-3xl">
+          A focused startpage for daily browsing, development, and media.
+        </p>
+      </section>
+
+      <div className="space-y-8">
+        {tabs.map((tab) => (
+          <section key={tab.name} className="space-y-3">
+            <h2 className="type-label fg-muted">{tab.name}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {tab.categories.map((category) => (
+                <article
+                  key={category.name}
+                  className="border border-ui bg-white dark:bg-stone-950"
+                >
+                  <h3 className="type-label fg-subtle px-3 py-3 border-b border-ui">
+                    {category.name}
+                  </h3>
+                  <ul className="p-1 space-y-1">
+                    {category.links.map((link) => (
+                      <li key={link.url}>
+                        <a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full flex items-center justify-between px-2 py-2 type-ui fg-secondary hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors"
+                        >
+                          <span>{link.name}</span>
+                          <span className="type-meta fg-muted">↗</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  )
 }
