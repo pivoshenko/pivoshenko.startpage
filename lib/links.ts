@@ -53,7 +53,10 @@ export const tabs: WorkspaceTab[] = [
       {
         name: 'tech leads',
         links: [
-          { name: 'pragmaticengineer', url: 'https://blog.pragmaticengineer.com' },
+          {
+            name: 'pragmaticengineer',
+            url: 'https://blog.pragmaticengineer.com',
+          },
         ],
       },
       {
@@ -72,7 +75,7 @@ export const tabs: WorkspaceTab[] = [
           {
             name: 'spotify engineering',
             url: 'https://engineering.atspotify.com',
-          }
+          },
         ],
       },
     ],

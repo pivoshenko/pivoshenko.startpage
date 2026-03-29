@@ -6,11 +6,11 @@ import {
   Flag,
   Gamepad2,
   Link2,
+  type LucideIcon,
   MessageCircle,
   Newspaper,
   PlayCircle,
   Users,
-  type LucideIcon,
 } from 'lucide-react'
 
 export default function HomePage() {
