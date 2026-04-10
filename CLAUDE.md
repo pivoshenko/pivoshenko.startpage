@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-A minimal personal startpage (browser start/new-tab page) built with Next.js 16, React 19, Tailwind CSS 3, and Geist fonts. Deployed on Vercel with `@vercel/analytics`.
+A minimal personal startpage (browser start/new-tab page) built with Next.js 16, React 19, Tailwind CSS 3, and JetBrains Mono font. Deployed on Vercel with `@vercel/analytics`.
 
 ## Commands
 
@@ -25,7 +25,7 @@ Single-page app with one route (`app/page.tsx`). No API routes, no database, no 
 - **`lib/links.ts`** — all quick-link data. `WorkspaceTab[]` → each tab has `Category[]` → each category has `LinkItem[]`. The page flattens tabs and renders categories in a 3-column grid.
 - **`lib/palette.ts`** — "morok" colour palette constants (Catppuccin-inspired).
 - **`app/globals.css`** — design-token utility classes defined via `@layer components`: typography (`type-heading`, `type-body`, `type-ui`, `type-label`, `type-meta`, `type-logo`), foreground colours (`fg-primary` through `fg-muted`), hover states (`hover-primary`, `hover-secondary`), and borders (`border-ui`, `border-faint`). Use these classes instead of raw Tailwind colour utilities for consistency.
-- **`app/icon.tsx`** — dynamically generated favicon using Next.js `ImageResponse` with GeistMono Bold.
+- **`app/icon.tsx`** — dynamically generated favicon using Next.js `ImageResponse` with JetBrains Mono fetched from Google Fonts CDN (`runtime = 'edge'`).
 - **`components/`** — `Nav` (header + external links to blog/theme/wallpapers), `Footer` (copyright + social icons), `ThemeToggle` (light/dark via `next-themes`).
 
 Theme switching uses `next-themes` with `attribute="class"` and `darkMode: 'class'` in Tailwind config.
