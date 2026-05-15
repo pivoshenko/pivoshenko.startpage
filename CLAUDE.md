@@ -41,6 +41,10 @@ This site pins `pivoshenko.ui` via git tag in `package.json`. See parent `me/CLA
 - `next.config.ts` needs `transpilePackages: ['pivoshenko.ui']`
 - `postcss.config.mjs` needs `postcss-import` before `tailwindcss` (so `@import "pivoshenko.ui/ui/globals.css"` resolves at build time)
 
+## Required env vars
+
+None. `@vercel/analytics` is wired via the Vercel integration. If a future build needs a secret, add it here as: name · purpose · scope (build/runtime) · visibility (`NEXT_PUBLIC_` public vs secret).
+
 ## Code Style
 
 - **Biome** handles linting, formatting, and import sorting (single quotes, no semicolons, trailing commas, 2-space indent, 80-char line width). Rules come from the shared config.
