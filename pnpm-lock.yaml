@@ -21,8 +21,8 @@ importers:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       pivoshenko.ui:
-        specifier: github:pivoshenko/pivoshenko.ui#v0.3.0
-        version: https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/dd90a669ad0ef03df21f1de7e23df7616b0a1f49(next-themes@0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tailwindcss@3.4.19)
+        specifier: github:pivoshenko/pivoshenko.ui#v0.4.0
+        version: https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/24bdbe34e1b4fdc2617ecce94ef0542493189a6b(next-themes@0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tailwindcss@3.4.19)
       react:
         specifier: ^19.2.6
         version: 19.2.6
@@ -635,9 +635,9 @@ packages:
     resolution: {integrity: sha512-TfySrs/5nm8fQJDcBDuUng3VOUKsd7S+zqvbOTiGXHfxX4wK31ard+hoNuvkicM/2YFzlpDgABOevKSsB4G/FA==}
     engines: {node: '>= 6'}
 
-  pivoshenko.ui@https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/dd90a669ad0ef03df21f1de7e23df7616b0a1f49:
-    resolution: {tarball: https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/dd90a669ad0ef03df21f1de7e23df7616b0a1f49}
-    version: 0.3.0
+  pivoshenko.ui@https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/24bdbe34e1b4fdc2617ecce94ef0542493189a6b:
+    resolution: {tarball: https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/24bdbe34e1b4fdc2617ecce94ef0542493189a6b}
+    version: 0.4.0
     engines: {node: '>=22'}
     peerDependencies:
       next: ^16.0.0
@@ -1234,7 +1234,7 @@ snapshots:
 
   pirates@4.0.7: {}
 
-  pivoshenko.ui@https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/dd90a669ad0ef03df21f1de7e23df7616b0a1f49(next-themes@0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tailwindcss@3.4.19):
+  pivoshenko.ui@https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/24bdbe34e1b4fdc2617ecce94ef0542493189a6b(next-themes@0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tailwindcss@3.4.19):
     optionalDependencies:
       next: 16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       next-themes: 0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
