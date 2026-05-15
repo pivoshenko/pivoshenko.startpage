@@ -1,9 +1,8 @@
-import { Footer } from '@/components/footer'
-import { Nav } from '@/components/nav'
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { ThemeProvider } from 'next-themes'
 import { JetBrains_Mono } from 'next/font/google'
+import { PageShell } from 'pivoshenko.ui'
 import './globals.css'
 
 const jetbrainsMono = JetBrains_Mono({
@@ -23,6 +22,16 @@ export const viewport: Viewport = {
   themeColor: '#000000',
 }
 
+const navLinks = [
+  { href: 'https://pivoshenko.dev', label: 'Blog', external: true },
+  { href: 'https://theme.pivoshenko.dev', label: 'Theme', external: true },
+  {
+    href: 'https://wallpapers.pivoshenko.dev',
+    label: 'Wallpapers',
+    external: true,
+  },
+]
+
 export default function RootLayout({
   children,
 }: {
@@ -35,15 +44,11 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={jetbrainsMono.variable}
     >
-      <body className="bg-stone-50 text-stone-900 dark:bg-black dark:text-stone-100 font-mono antialiased">
+      <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="min-h-screen flex flex-col">
-            <Nav />
-            <main className="flex-1 w-full max-w-6xl mx-auto px-4 py-6">
-              {children}
-            </main>
-            <Footer />
-          </div>
+          <PageShell brand="pivoshenko.startpage" navLinks={navLinks}>
+            {children}
+          </PageShell>
         </ThemeProvider>
         <Analytics />
       </body>
