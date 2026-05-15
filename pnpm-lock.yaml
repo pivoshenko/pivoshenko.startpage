@@ -21,8 +21,8 @@ importers:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       pivoshenko.ui:
-        specifier: github:pivoshenko/pivoshenko.ui#v0.4.0
-        version: https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/24bdbe34e1b4fdc2617ecce94ef0542493189a6b(next-themes@0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tailwindcss@3.4.19)
+        specifier: github:pivoshenko/pivoshenko.ui#v0.4.3
+        version: https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/998ac84b0d86d3990c78a71aee3cf51847b4051b(next-themes@0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tailwindcss@3.4.19)
       react:
         specifier: ^19.2.6
         version: 19.2.6
@@ -48,6 +48,9 @@ importers:
       postcss:
         specifier: ^8.5.13
         version: 8.5.13
+      postcss-import:
+        specifier: ^16.1.1
+        version: 16.1.1(postcss@8.5.13)
       tailwindcss:
         specifier: ^3.4.19
         version: 3.4.19
@@ -635,9 +638,9 @@ packages:
     resolution: {integrity: sha512-TfySrs/5nm8fQJDcBDuUng3VOUKsd7S+zqvbOTiGXHfxX4wK31ard+hoNuvkicM/2YFzlpDgABOevKSsB4G/FA==}
     engines: {node: '>= 6'}
 
-  pivoshenko.ui@https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/24bdbe34e1b4fdc2617ecce94ef0542493189a6b:
-    resolution: {tarball: https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/24bdbe34e1b4fdc2617ecce94ef0542493189a6b}
-    version: 0.4.0
+  pivoshenko.ui@https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/998ac84b0d86d3990c78a71aee3cf51847b4051b:
+    resolution: {tarball: https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/998ac84b0d86d3990c78a71aee3cf51847b4051b}
+    version: 0.4.3
     engines: {node: '>=22'}
     peerDependencies:
       next: ^16.0.0
@@ -660,6 +663,12 @@ packages:
   postcss-import@15.1.0:
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
     engines: {node: '>=14.0.0'}
+    peerDependencies:
+      postcss: ^8.0.0
+
+  postcss-import@16.1.1:
+    resolution: {integrity: sha512-2xVS1NCZAfjtVdvXiyegxzJ447GyqCeEI5V7ApgQVOWnros1p5lGNovJNapwPpMombyFBfqDwt7AD3n2l0KOfQ==}
+    engines: {node: '>=18.0.0'}
     peerDependencies:
       postcss: ^8.0.0
 
@@ -1234,7 +1243,7 @@ snapshots:
 
   pirates@4.0.7: {}
 
-  pivoshenko.ui@https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/24bdbe34e1b4fdc2617ecce94ef0542493189a6b(next-themes@0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tailwindcss@3.4.19):
+  pivoshenko.ui@https://codeload.github.com/pivoshenko/pivoshenko.ui/tar.gz/998ac84b0d86d3990c78a71aee3cf51847b4051b(next-themes@0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(next@16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tailwindcss@3.4.19):
     optionalDependencies:
       next: 16.2.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       next-themes: 0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -1243,6 +1252,13 @@ snapshots:
       tailwindcss: 3.4.19
 
   postcss-import@15.1.0(postcss@8.5.13):
+    dependencies:
+      postcss: 8.5.13
+      postcss-value-parser: 4.2.0
+      read-cache: 1.0.0
+      resolve: 1.22.12
+
+  postcss-import@16.1.1(postcss@8.5.13):
     dependencies:
       postcss: 8.5.13
       postcss-value-parser: 4.2.0
