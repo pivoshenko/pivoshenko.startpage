@@ -12,6 +12,7 @@ import {
   PlayCircle,
   Users,
 } from 'lucide-react'
+import { Card } from 'pivoshenko.ui'
 
 export default function HomePage() {
   const categories = tabs.flatMap((tab) => tab.categories)
@@ -19,10 +20,7 @@ export default function HomePage() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
       {categories.map((category) => (
-        <article
-          key={category.name}
-          className="overflow-hidden rounded border border-ui bg-white dark:bg-stone-950"
-        >
+        <Card key={category.name} className="overflow-hidden">
           <h3 className="type-label fg-subtle px-3 py-3 border-b border-ui flex items-center gap-2">
             <CategoryIcon name={category.name} />
             {category.name}
@@ -44,7 +42,7 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
-        </article>
+        </Card>
       ))}
     </div>
   )
