@@ -7,19 +7,21 @@ export const tabs: WorkspaceTab[] = [
     name: 'row-1',
     categories: [
       {
-        name: 'bookmarks',
+        name: 'me',
         links: [
-          { name: 'raindrop', url: 'https://app.raindrop.io' },
+          { name: 'pivoshenko.dev', url: 'https://pivoshenko.dev' },
+          { name: 'pivoshenko.ai', url: 'https://ai.pivoshenko.dev' },
+          { name: 'pivoshenko.theme', url: 'https://theme.pivoshenko.dev' },
           {
-            name: 'musicforprogramming',
-            url: 'https://musicforprogramming.net',
+            name: 'pivoshenko.wallpapers',
+            url: 'https://wallpapers.pivoshenko.dev',
           },
         ],
       },
       {
         name: 'workspace',
         links: [
-          { name: 'linear', url: 'https://linear.app' },
+          { name: 'raindrop', url: 'https://app.raindrop.io' },
           { name: 'gmail', url: 'https://mail.google.com' },
           { name: 'calendar', url: 'https://calendar.google.com' },
           { name: 'sheets', url: 'https://docs.google.com/spreadsheets' },
@@ -48,10 +50,14 @@ export const tabs: WorkspaceTab[] = [
           { name: 'kaggle', url: 'https://www.kaggle.com' },
           { name: 'leetcode', url: 'https://leetcode.com' },
           { name: 'exercism', url: 'https://exercism.org' },
+          {
+            name: 'musicforprogramming',
+            url: 'https://musicforprogramming.net',
+          },
         ],
       },
       {
-        name: 'tech leads',
+        name: 'tech lead blogs',
         links: [
           {
             name: 'pragmaticengineer',
