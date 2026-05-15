@@ -22,16 +22,6 @@ export const viewport: Viewport = {
   themeColor: '#000000',
 }
 
-const navLinks = [
-  { href: 'https://pivoshenko.dev', label: 'Blog', external: true },
-  { href: 'https://theme.pivoshenko.dev', label: 'Theme', external: true },
-  {
-    href: 'https://wallpapers.pivoshenko.dev',
-    label: 'Wallpapers',
-    external: true,
-  },
-]
-
 export default function RootLayout({
   children,
 }: {
@@ -46,9 +36,7 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <PageShell brand="pivoshenko.startpage" navLinks={navLinks}>
-            {children}
-          </PageShell>
+          <PageShell brand="pivoshenko.startpage">{children}</PageShell>
         </ThemeProvider>
         <Analytics />
       </body>
