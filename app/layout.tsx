@@ -11,11 +11,25 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://startpage.pivoshenko.dev'),
   title: {
     template: '%s — pivoshenko.startpage',
     default: 'pivoshenko.startpage',
   },
   description: 'Personal startpage with quick links and daily resources.',
+  openGraph: {
+    type: 'website',
+    url: 'https://startpage.pivoshenko.dev',
+    siteName: 'pivoshenko.startpage',
+    title: 'pivoshenko.startpage',
+    description: 'Personal startpage with quick links and daily resources.',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'pivoshenko.startpage',
+    description: 'Personal startpage with quick links and daily resources.',
+  },
 }
 
 export const viewport: Viewport = {
