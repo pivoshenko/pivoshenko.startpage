@@ -16,7 +16,7 @@ pnpm format       # biome format (writes)
 pnpm check        # biome check (lint + format + import sort, writes)
 ```
 
-`just lint` runs `pnpm check && pnpm build` (the full CI-equivalent check).
+`just lint` runs Biome lint only; `just check` runs `pnpm check && pnpm build` (the full CI-equivalent gate).
 
 ## Architecture
 
