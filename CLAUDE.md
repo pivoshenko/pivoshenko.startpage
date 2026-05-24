@@ -23,13 +23,13 @@ pnpm check        # biome check (lint + format + import sort, writes)
 Single-page app with one route (`app/page.tsx`). No API routes, no database, no auth.
 
 - **`lib/links.ts`** — all quick-link data. `WorkspaceTab[]` → each tab has `Category[]` → each category has `LinkItem[]`. The page flattens tabs and renders categories in a 3-column grid.
-- **`app/layout.tsx`** — composes `<PageShell>` from `pivoshenko.ui` with `brand="pivoshenko.startpage"` and external `navLinks`; wires `next/font` JetBrains Mono + `ThemeProvider` + Analytics.
+- **`app/layout.tsx`** — composes `<PageShell brand="pivoshenko.startpage">` from `pivoshenko.ui` (no extra props — nav links come from the shared default); wires `next/font` JetBrains Mono + `ThemeProvider` + Analytics.
 - **`app/page.tsx`** — renders categories inside `<Card>` from `pivoshenko.ui`.
 - **`app/globals.css`** — single `@import "pivoshenko.ui/ui/globals.css"`. All design tokens come from the shared package.
-- **`app/icon.tsx`** — dynamically generated favicon using Next.js `ImageResponse` with JetBrains Mono fetched from Google Fonts CDN (`runtime = 'edge'`).
+- **`app/icon.tsx`** — dynamically generated favicon using Next.js `ImageResponse` with a hardcoded generic monospace stack (`ui-monospace, SFMono-Regular, …`); no external font fetch, no `runtime` export.
 - **`components/`** — empty. Footer, Nav, ThemeToggle come from `pivoshenko.ui` (`<PageShell>` wires them up).
 
-Theme switching uses `next-themes` with `attribute="class"` and `darkMode: 'class'` (from the shared Tailwind preset).
+Theme switching uses `next-themes` with `attribute="class"`; `darkMode: 'class'` comes from the shared Tailwind preset (not this repo's config).
 
 ## Shared package consumption
 
