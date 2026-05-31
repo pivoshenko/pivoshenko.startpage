@@ -21,14 +21,16 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://startpage.pivoshenko.dev',
     siteName: 'pivoshenko.startpage',
-    title: 'pivoshenko.startpage',
-    description: 'Personal startpage with quick links and daily resources.',
+    title: 'Startpage',
+    description:
+      'A minimal personal startpage with quick links and daily resources',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'pivoshenko.startpage',
-    description: 'Personal startpage with quick links and daily resources.',
+    title: 'Startpage',
+    description:
+      'A minimal personal startpage with quick links and daily resources',
   },
 }
 
