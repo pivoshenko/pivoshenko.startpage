@@ -32,7 +32,7 @@ export default function HomePage() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full rounded flex items-center justify-between px-2 py-2 type-ui fg-secondary hover:bg-stone-100 dark:hover:bg-stone-900 transition-colors"
+                  className="w-full rounded flex items-center justify-between px-2 py-2 type-ui fg-secondary hover:bg-bg-raised transition-colors"
                 >
                   <span className="flex items-center gap-2">
                     <span>{link.name}</span>

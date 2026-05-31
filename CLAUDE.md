@@ -32,7 +32,7 @@ Single-page app with one route (`site/app/page.tsx`). No API routes, no database
 - **`site/app/page.tsx`** — renders categories inside `<Card>` from `pivoshenko.ui`.
 - **`site/app/globals.css`** — single `@import "pivoshenko.ui/ui/globals.css"`. All design tokens come from the shared package.
 - **`site/app/icon.tsx`** — dynamically generated favicon using Next.js `ImageResponse` with a hardcoded generic monospace stack (`ui-monospace, SFMono-Regular, …`); no external font fetch, no `runtime` export.
-- **`site/app/opengraph-image.tsx`** — edge-runtime OG card (1200×630 PNG) for link unfurls. Fetches JetBrains Mono from gstatic at request time (next/og doesn't inherit `next/font`). Palette hexes are inlined and should track `pivoshenko.theme/morok`. See `/opengraph` skill for the conventions.
+- **`site/app/opengraph-image.tsx`** — edge-runtime OG card (1200×630 PNG) for link unfurls. Fetches JetBrains Mono from gstatic at request time (next/og doesn't inherit `next/font`). Palette hexes are inlined and should track `pivoshenko.theme/popil`. See `/opengraph` skill for the conventions.
 - **`site/components/`** — empty. Footer, Nav, ThemeToggle come from `pivoshenko.ui` (`<PageShell>` wires them up).
 
 Theme switching uses `next-themes` with `attribute="class"`; `darkMode: 'class'` comes from the shared Tailwind preset (not this repo's config).
