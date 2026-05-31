@@ -17,6 +17,7 @@ just dev          # local dev server (Turbopack)
 just build        # production build
 just lint         # biome lint
 just format       # biome format (writes)
+just audit        # pnpm audit (fails on any moderate+ advisory)
 just check        # biome check + next build (full CI-equivalent gate)
 ```
 
@@ -45,6 +46,7 @@ This site pins `pivoshenko.ui` via git tag in `site/package.json`. See parent `s
 - `site/tailwind.config.ts` uses `pivoshenko.ui/tailwind-preset` + a content glob pointing at the package source
 - `site/next.config.ts` needs `transpilePackages: ['pivoshenko.ui']`
 - `site/postcss.config.mjs` needs `postcss-import` before `tailwindcss` (so `@import "pivoshenko.ui/ui/globals.css"` resolves at build time)
+- `site/pnpm-workspace.yaml` carries an `overrides: "postcss@<8.5.10": ">=8.5.10"` pin for GHSA-qx2v-qp2m-jg93 (transitive via `next`). Remove once Next ships a release that bumps the floor itself.
 
 ## Deployment
 
