@@ -28,14 +28,14 @@ Or directly: `pnpm -C site <script>` / `cd site && pnpm <script>`.
 Single-page app with one route (`site/app/page.tsx`). No API routes, no database, no auth.
 
 - **`site/lib/links.ts`** — all quick-link data. `WorkspaceTab[]` → each tab has `Category[]` → each category has `LinkItem[]`. The page flattens tabs and renders categories in a 3-column grid.
-- **`site/app/layout.tsx`** — composes `<PageShell brand="pivoshenko.startpage">` from `pivoshenko.ui` (no extra props — nav links come from the shared default); wires `next/font` JetBrains Mono + `ThemeProvider` + Analytics.
+- **`site/app/layout.tsx`** — thin wrapper around `<SiteLayout brand="pivoshenko.startpage">` from `pivoshenko.ui/next/site-layout`; metadata via `siteMetadata(...)`, viewport via `siteViewport`. JetBrains Mono, `<html>`/`<body>` scaffolding, and Vercel Analytics are all handled inside the shared layout.
 - **`site/app/page.tsx`** — renders categories inside `<Card>` from `pivoshenko.ui`.
 - **`site/app/globals.css`** — single `@import "pivoshenko.ui/ui/globals.css"`. All design tokens come from the shared package.
-- **`site/app/icon.tsx`** — dynamically generated favicon using Next.js `ImageResponse` with a hardcoded generic monospace stack (`ui-monospace, SFMono-Regular, …`); no external font fetch, no `runtime` export.
-- **`site/app/opengraph-image.tsx`** — edge-runtime OG card (1200×630 PNG) for link unfurls. Fetches JetBrains Mono from gstatic at request time (next/og doesn't inherit `next/font`). Palette hexes are inlined and should track `pivoshenko.theme/popil`. See `/opengraph` skill for the conventions.
-- **`site/components/`** — empty. Footer, Nav, ThemeToggle come from `pivoshenko.ui` (`<PageShell>` wires them up).
+- **`site/app/icon.tsx`** — re-exports the favicon handler from `pivoshenko.ui/next/icon` with locally-declared `size`/`contentType` literals (Next requires route segment exports to be statically parsable).
+- **`site/app/opengraph-image.tsx`** — thin wrapper around `createOgImage({brand,title,subtitle,domain})` from `pivoshenko.ui/next/opengraph-image`. Route segment exports (`alt`, `size`, `contentType`, `runtime`) stay literal in the route file. Palette colors come from `pivoshenko.ui/ui/palette.ts` (vendored alongside `tokens.css`); update both together via `just vendor-preset` in `pivoshenko.ui`.
+- **`site/components/`** — empty. Footer, Nav, ScrollToTop come from `pivoshenko.ui` (`<PageShell>` wires them up).
 
-Theme switching uses `next-themes` with `attribute="class"`; `darkMode: 'class'` comes from the shared Tailwind preset (not this repo's config).
+Single dark theme (`popil`) — light mode and `next-themes` were removed. Role classes (`bg-bg-canvas`, `text-fg-default`, `text-accent-*`) come from the `pivoshenko.ui/tailwind-preset/site` preset backed by CSS variables in `pivoshenko.ui/ui/tokens.css` (scoped to `:root`).
 
 ## Shared package consumption
 
@@ -43,9 +43,9 @@ This site pins `pivoshenko.ui` via git tag in `site/package.json`. See parent `s
 
 - `site/biome.json` extends `./node_modules/pivoshenko.ui/config/biome.json`
 - `site/tsconfig.json` extends `pivoshenko.ui/tsconfig.base.json`
-- `site/tailwind.config.ts` uses `pivoshenko.ui/tailwind-preset` + a content glob pointing at the package source
-- `site/next.config.ts` needs `transpilePackages: ['pivoshenko.ui']`
-- `site/postcss.config.mjs` needs `postcss-import` before `tailwindcss` (so `@import "pivoshenko.ui/ui/globals.css"` resolves at build time)
+- `site/tailwind.config.ts` uses `pivoshenko.ui/tailwind-preset/site` + the `withUiContent()` helper
+- `site/next.config.ts` re-exports `baseNextConfig` from `pivoshenko.ui/next/config` (covers `reactStrictMode` + `transpilePackages: ['pivoshenko.ui']`)
+- `site/postcss.config.mjs` re-exports `pivoshenko.ui/postcss.config.mjs` (which wires `postcss-import` before `tailwindcss` so `@import "pivoshenko.ui/ui/globals.css"` resolves at build time)
 - `site/pnpm-workspace.yaml` carries an `overrides: "postcss@<8.5.10": ">=8.5.10"` pin for GHSA-qx2v-qp2m-jg93 (transitive via `next`). Remove once Next ships a release that bumps the floor itself.
 
 ## Deployment
