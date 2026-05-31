@@ -39,7 +39,7 @@ export default async function OpengraphImage() {
             color: '#c7b07a',
           }}
         >
-          startpage
+          Startpage
         </div>
         <div
           style={{
@@ -50,19 +50,11 @@ export default async function OpengraphImage() {
             maxWidth: 980,
           }}
         >
-          a minimal personal startpage with quick links and daily resources.
+          A minimal personal startpage with quick links and daily resources
         </div>
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          fontSize: 24,
-          color: '#8a8a85',
-        }}
-      >
-        <span>startpage.pivoshenko.dev</span>
-        <span>links · tabs · focus</span>
+      <div style={{ display: 'flex', fontSize: 24, color: '#8a8a85' }}>
+        startpage.pivoshenko.dev
       </div>
     </div>,
     {
