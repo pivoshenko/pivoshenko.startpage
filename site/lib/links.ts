@@ -38,6 +38,7 @@ export const tabs: WorkspaceTab[] = [
           { name: 'vercel', url: 'https://vercel.com' },
           { name: 'supabase', url: 'https://supabase.com/dashboard' },
           { name: 'logfire', url: 'https://logfire-eu.pydantic.dev' },
+          { name: 'resend', url: 'https://resend.com/emails' },
         ],
       },
     ],
