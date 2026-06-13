@@ -36,6 +36,8 @@ export const tabs: WorkspaceTab[] = [
           { name: 'tailscale', url: 'https://login.tailscale.com' },
           { name: 'motherduck', url: 'https://app.motherduck.com' },
           { name: 'vercel', url: 'https://vercel.com' },
+          { name: 'supabase', url: 'https://supabase.com/dashboard' },
+          { name: 'logfire', url: 'https://logfire-eu.pydantic.dev' },
         ],
       },
     ],
