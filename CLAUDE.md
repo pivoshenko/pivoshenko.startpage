@@ -44,13 +44,13 @@ This site pins `pivoshenko.ui` via git tag in `site/package.json`. See parent `s
 - `site/biome.json` extends `./node_modules/pivoshenko.ui/config/biome.json`
 - `site/tsconfig.json` extends `pivoshenko.ui/tsconfig.base.json`
 - `site/tailwind.config.ts` uses `pivoshenko.ui/tailwind-preset/site` + the `withUiContent()` helper
-- `site/next.config.ts` re-exports `baseNextConfig` from `pivoshenko.ui/next/config` (covers `reactStrictMode` + `transpilePackages: ['pivoshenko.ui']`)
+- `site/next.config.ts` re-exports `baseNextConfig` from `pivoshenko.ui/next/config` (covers `reactStrictMode` + `transpilePackages: ['pivoshenko.ui']` + security `headers()`)
 - `site/postcss.config.mjs` re-exports `pivoshenko.ui/postcss.config.mjs` (which wires `postcss-import` before `tailwindcss` so `@import "pivoshenko.ui/ui/globals.css"` resolves at build time)
 - `site/pnpm-workspace.yaml` carries an `overrides: "postcss@<8.5.10": ">=8.5.10"` pin for GHSA-qx2v-qp2m-jg93 (transitive via `next`). Remove once Next ships a release that bumps the floor itself.
 
 ## Deployment
 
-Vercel project `pivoshenko.startpage` (team `pivoshenko`). Production domain `startpage.pivoshenko.dev`; production branch `main`; previews on every other branch. After the `site/` restructure, the Vercel **Root Directory** must be set to `site` — `vercel.json` lives at `site/vercel.json` and assumes it's the project root (`buildCommand: pnpm build`, `outputDirectory: .next`). Node `>=22` is enforced via `site/package.json` `engines`.
+Vercel project `pivoshenko.startpage` (team `pivoshenko`). Production domain `startpage.pivoshenko.dev`; production branch `main`; previews on every other branch. After the `site/` restructure, the Vercel **Root Directory** must be set to `site` — `vercel.json` lives at `site/vercel.json` and assumes it's the project root (`buildCommand: pnpm build`, `outputDirectory: .next`). Node `>=24` is enforced via `site/package.json` `engines` (a range — local Node 26 satisfies it; Vercel resolves it to its latest major, 24.x).
 
 ## Required env vars
 
