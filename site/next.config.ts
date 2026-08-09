@@ -1,10 +1,8 @@
 import type { NextConfig } from 'next'
 import { baseNextConfig } from 'pivoshenko.ui/next/config'
 
-// This site is a browser new-tab/startpage and is meant to be embedded in an
-// iframe by custom new-tab extensions. The shared baseNextConfig sets
-// `X-Frame-Options: DENY`, which blocks all framing — so strip just that header
-// here while inheriting every other shared security header.
+// Custom new-tab extensions embed this startpage in an iframe, which the shared
+// `X-Frame-Options: DENY` blocks. Strip that one header, inherit the rest
 const config: NextConfig = {
   ...baseNextConfig,
   async headers() {

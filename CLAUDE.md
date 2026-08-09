@@ -27,37 +27,37 @@ Or directly: `pnpm -C site <script>` / `cd site && pnpm <script>`.
 
 Single-page app with one route (`site/app/page.tsx`). No API routes, no database, no auth.
 
-- **`site/lib/links.ts`** — all quick-link data. `WorkspaceTab[]` → each tab has `Category[]` → each category has `LinkItem[]`. The page flattens tabs and renders categories in a 3-column grid.
-- **`site/app/layout.tsx`** — thin wrapper around `<SiteLayout brand="pivoshenko.startpage">` from `pivoshenko.ui/next/site-layout`; metadata via `siteMetadata(...)`, viewport via `siteViewport`. JetBrains Mono, `<html>`/`<body>` scaffolding, and Vercel Analytics are all handled inside the shared layout.
-- **`site/app/page.tsx`** — renders categories inside `<Card>` from `pivoshenko.ui`.
-- **`site/app/globals.css`** — single `@import "pivoshenko.ui/ui/globals.css"`. All design tokens come from the shared package.
-- **`site/app/icon.tsx`** — re-exports the favicon handler from `pivoshenko.ui/next/icon` with locally-declared `size`/`contentType` literals (Next requires route segment exports to be statically parsable).
-- **`site/app/opengraph-image.tsx`** — thin wrapper around `createOgImage({brand,title,subtitle,domain})` from `pivoshenko.ui/next/opengraph-image`. Route segment exports (`alt`, `size`, `contentType`, `runtime`) stay literal in the route file. Palette colors come from `pivoshenko.ui/ui/palette.ts` (vendored alongside `tokens.css`); update both together via `just vendor-preset` in `pivoshenko.ui`.
-- **`site/components/`** — empty. Footer, Nav, ScrollToTop come from `pivoshenko.ui` (`<PageShell>` wires them up).
+- `site/lib/links.ts`: all quick-link data. `WorkspaceTab[]`, where each tab has `Category[]` and each category has `LinkItem[]`. The page flattens tabs and renders categories in a 3-column grid.
+- `site/app/layout.tsx`: thin wrapper around `<SiteLayout brand="pivoshenko.startpage">` from `pivoshenko.ui/next/site-layout`; metadata via `siteMetadata(...)`, viewport via `siteViewport`. JetBrains Mono, `<html>`/`<body>` scaffolding, and Vercel Analytics are all handled inside the shared layout.
+- `site/app/page.tsx`: renders categories inside `<Card>` from `pivoshenko.ui`.
+- `site/app/globals.css`: single `@import "pivoshenko.ui/ui/globals.css"`. All design tokens come from the shared package.
+- `site/app/icon.tsx`: re-exports the favicon handler from `pivoshenko.ui/next/icon` with locally-declared `size`/`contentType` literals (Next requires route segment exports to be statically parsable).
+- `site/app/opengraph-image.tsx`: thin wrapper around `createOgImage({brand,title,subtitle,domain})` from `pivoshenko.ui/next/opengraph-image`. Route segment exports (`alt`, `size`, `contentType`, `runtime`) stay literal in the route file. Palette colors come from `pivoshenko.ui/ui/palette.ts` (vendored alongside `tokens.css`); update both together via `just vendor-preset` in `pivoshenko.ui`.
+- `site/components/`: empty. Footer, Nav, ScrollToTop come from `pivoshenko.ui` (`<PageShell>` wires them up).
 
-Single dark theme (`popil`) — light mode and `next-themes` were removed. Role classes (`bg-bg-canvas`, `text-fg-default`, `text-accent-*`) come from the `pivoshenko.ui/tailwind-preset/site` preset backed by CSS variables in `pivoshenko.ui/ui/tokens.css` (scoped to `:root`).
+Single dark theme (`popil`); light mode and `next-themes` were removed. Role classes (`bg-bg-canvas`, `text-fg-default`, `text-accent-*`) come from the `pivoshenko.ui/tailwind-preset/site` preset backed by CSS variables in `pivoshenko.ui/ui/tokens.css` (scoped to `:root`).
 
-## Shared package consumption
+## Shared Package Consumption
 
 This site pins `pivoshenko.ui` via git tag in `site/package.json`. See parent `sources/CLAUDE.md` for the cross-cutting pattern and local-override workflow.
 
 - `site/biome.json` extends `./node_modules/pivoshenko.ui/config/biome.json`
 - `site/tsconfig.json` extends `pivoshenko.ui/tsconfig.base.json`
 - `site/tailwind.config.ts` uses `pivoshenko.ui/tailwind-preset/site` + the `withUiContent()` helper
-- `site/next.config.ts` spreads `baseNextConfig` from `pivoshenko.ui/next/config` (covers `reactStrictMode` + `transpilePackages: ['pivoshenko.ui']` + security `headers()`), then strips **only** the `X-Frame-Options: DENY` header — this site is a browser new-tab/startpage and must be embeddable in an iframe by custom new-tab extensions; all other shared security headers are inherited
+- `site/next.config.ts` spreads `baseNextConfig` from `pivoshenko.ui/next/config` (covers `reactStrictMode` + `transpilePackages: ['pivoshenko.ui']` + security `headers()`), then strips **only** the `X-Frame-Options: DENY` header. This site is a browser new-tab/startpage and must be embeddable in an iframe by custom new-tab extensions; all other shared security headers are inherited
 - `site/postcss.config.mjs` re-exports `pivoshenko.ui/postcss.config.mjs` (which wires `postcss-import` before `tailwindcss` so `@import "pivoshenko.ui/ui/globals.css"` resolves at build time)
 - `site/pnpm-workspace.yaml` carries an `overrides: "postcss@<8.5.10": ">=8.5.10"` pin for GHSA-qx2v-qp2m-jg93 (transitive via `next`). Remove once Next ships a release that bumps the floor itself.
 
 ## Deployment
 
-Vercel project `pivoshenko.startpage` (team `pivoshenko`). Production domain `startpage.pivoshenko.dev`; production branch `main`; previews on every other branch. After the `site/` restructure, the Vercel **Root Directory** must be set to `site` — `vercel.json` lives at `site/vercel.json` and assumes it's the project root (`buildCommand: pnpm build`, `outputDirectory: .next`). Node `>=24` is enforced via `site/package.json` `engines` (a range — local Node 26 satisfies it; Vercel resolves it to its latest major, 24.x).
+Vercel project `pivoshenko.startpage` (team `pivoshenko`). Production domain `startpage.pivoshenko.dev`; production branch `main`; previews on every other branch. After the `site/` restructure, the Vercel **Root Directory** must be set to `site`. `vercel.json` lives at `site/vercel.json` and assumes it's the project root (`buildCommand: pnpm build`, `outputDirectory: .next`). Node `>=24` is enforced via `site/package.json` `engines` (a range, so local Node 26 satisfies it; Vercel resolves it to its latest major, 24.x).
 
-## Required env vars
+## Required Env Vars
 
-None. `@vercel/analytics` is wired via the Vercel integration. If a future build needs a secret, add it here as: name · purpose · scope (build/runtime) · visibility (`NEXT_PUBLIC_` public vs secret).
+None. `@vercel/analytics` is wired via the Vercel integration. If a future build needs a secret, add it here as: name, purpose, scope (build/runtime), visibility (`NEXT_PUBLIC_` public vs secret).
 
 ## Code Style
 
-- **Biome** handles linting, formatting, and import sorting (single quotes, no semicolons, trailing commas, 2-space indent, 80-char line width). Rules come from the shared config.
+- Biome handles linting, formatting, and import sorting (single quotes, no semicolons, trailing commas, 2-space indent, 80-char line width). Rules come from the shared config.
 - Path alias: `@/*` maps to `site/` (the dir containing `tsconfig.json`), not the repo root.
-- Server components by default; client components only where needed (theme toggle, etc.) — those live in `pivoshenko.ui`.
+- Server components by default; client components only where needed (theme toggle, etc.), and those live in `pivoshenko.ui`.
