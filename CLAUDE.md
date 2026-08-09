@@ -39,7 +39,7 @@ Single dark theme (`popil`); light mode and `next-themes` were removed. Role cla
 
 ## Shared Package Consumption
 
-This site pins `pivoshenko.ui` via git tag in `site/package.json`. See parent `sources/CLAUDE.md` for the cross-cutting pattern and local-override workflow.
+This site pins `pivoshenko.ui` via git tag in `site/package.json`.
 
 - `site/biome.json` extends `./node_modules/pivoshenko.ui/config/biome.json`
 - `site/tsconfig.json` extends `pivoshenko.ui/tsconfig.base.json`
