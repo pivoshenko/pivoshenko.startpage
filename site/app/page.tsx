@@ -1,15 +1,11 @@
 import { tabs } from '@/lib/links'
 import {
-  Bookmark,
   Briefcase,
   Code2,
-  Flag,
-  Gamepad2,
   Link2,
   type LucideIcon,
-  MessageCircle,
   Newspaper,
-  PlayCircle,
+  User,
   Users,
 } from 'lucide-react'
 import { Card } from 'pivoshenko.ui'
@@ -55,30 +51,18 @@ function CategoryIcon({ name }: { name: string }) {
 
 function getCategoryIcon(name: string): LucideIcon {
   switch (name) {
-    case 'bookmarks':
-      return Bookmark
+    case 'me':
+      return User
     case 'workspace':
       return Briefcase
     case 'platforms':
       return Briefcase
-    case 'media':
-      return Newspaper
     case 'development':
       return Code2
-    case 'tech leads':
+    case 'tech lead blogs':
       return Users
     case 'tech blogs':
       return Newspaper
-    case 'challenges':
-      return Flag
-    case 'resources':
-      return Bookmark
-    case 'social':
-      return MessageCircle
-    case 'gaming':
-      return Gamepad2
-    case 'video':
-      return PlayCircle
     default:
       return Link2
   }
