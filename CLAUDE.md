@@ -1,81 +1,53 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code when working in this repository.
 
-## Project
+`pivoshenko.startpage` is a personal browser startpage deployed to Vercel: one route, one data file,
+no backend, no state, no tests. The repository root is a thin wrapper - the app lives in `site/`.
 
-A minimal personal startpage (browser start/new-tab page): a single static page of curated quick links. Next.js 16 + React 19 + Tailwind 3, deployed to Vercel at `startpage.pivoshenko.dev`.
+## Rules
 
-The Next.js app lives entirely in `site/`. The repo root holds only `justfile`, `README.md`, `LICENSE`, `CLAUDE.md`, `AGENTS.md`, `.editorconfig`, `.no-tests`, and `.github/`. Every `pnpm`/`next` invocation happens inside `site/`.
+**`next.config.ts` deliberately strips `X-Frame-Options`.** The shared base config sets it to `DENY`;
+this site filters that one header out so browser new-tab extensions can embed the page in an iframe.
+Do not "fix" this back - the comment in the file explains it. Every other security header is
+inherited unchanged.
 
-## Commands
+**Never fix `pivoshenko.ui` behavior locally.** Every config file here (`biome.json`, `tsconfig.json`,
+`tailwind.config.ts`, `postcss.config.mjs`, `next.config.ts`) is a thin wrapper over the shared
+package. Change it upstream and bump the pinned tag; only override locally when the divergence is
+genuinely specific to the startpage. The dependency is a git ref, so `just update` will not move it -
+edit the ref in `site/package.json` and re-run `just install`. For the design tokens and component
+API it provides, see `pivoshenko.ui`'s own `CLAUDE.md`.
 
-Run from the repo root; `just` proxies into `site/` via `pnpm -C site`:
+**All content lives in `site/lib/links.ts`.** Adding, removing, or reordering links is a data edit
+there, never a change to `page.tsx`. The shape is `WorkspaceTab -> Category -> LinkItem`.
 
-```bash
-just install   # pnpm install
-just run-dev-server       # next dev --turbopack
-just build     # next build
-just lint      # biome lint .
-just format    # biome check . --write (format + lint autofix + import sort)
-just check     # lint + test + build (read-only)
-just run-prod-server     # build, then next start
-just update    # pnpm update
-just test      # sentinel no-op; see below
-```
-
-Direct equivalents: `pnpm -C site <script>` or `cd site && pnpm <script>`.
-
-There is no test framework and no dedicated typecheck script; `next build` is the type gate. `just test` succeeds only because the empty `.no-tests` sentinel file exists at the repo root and hard-fails otherwise - if tests are ever added, delete `.no-tests` and replace the `test` recipe.
-
-CI (`.github/workflows/ci.yaml`, Node 24, `ubuntu-24.04-arm`) runs `just install && just lint && just test && just build`. It runs the same steps `just check` composes; `check` is read-only, and `just format` is what writes fixes.
+**`AGENTS.md` is a symlink to this file.** Never edit it directly.
 
 ## Architecture
 
-One route, one data file. No API routes, no database, no auth, no client state.
+**The `tabs` layer is vestigial.** `page.tsx` calls `tabs.flatMap((tab) => tab.categories)` and
+renders the flattened result into a 3-column grid, so a tab is really just a visual row - hence the
+`row-1` / `row-2` names. There is no tab UI. Adding a fourth category to a row pushes it onto the
+next grid line rather than creating anything new.
 
-- `site/lib/links.ts` - all link data and the only file that normally changes. Shape: `WorkspaceTab[]` → `Category[]` → `LinkItem[]`. The "tab" layer is vestigial: `page.tsx` does `tabs.flatMap(tab => tab.categories)`, so tab names (`row-1`, `row-2`) only control ordering within the 3-column grid and are never rendered
-- `site/app/page.tsx` - server component rendering each category as a `<Card>` from `pivoshenko.ui`. `getCategoryIcon()` maps category name → `lucide-react` icon via a hardcoded `switch`; an unmatched name silently falls back to `Link2` with no error, so a typo or a rename degrades quietly instead of failing. The switch is kept in exact sync with the categories in `links.ts` - adding or renaming a category means editing both files
-- `site/app/layout.tsx` - thin wrapper over `SiteLayout` from `pivoshenko.ui/next/site-layout`, plus `siteMetadata(...)` / `siteViewport`. `<html>`/`<body>`, JetBrains Mono, `Nav`/`Footer`, and `@vercel/analytics` all live inside the shared layout; only `<SpeedInsights />` is wired locally through the `afterShell` prop
-- `site/app/icon.tsx`, `site/app/opengraph-image.tsx` - re-export handlers from `pivoshenko.ui`. Their route-segment exports (`size`, `contentType`, `runtime`, `alt`) must stay as local literals; Next parses them statically and cannot follow them through the package
-- `site/app/globals.css` - a single `@import "pivoshenko.ui/ui/globals.css"`
+**Category icons are matched by name string.** `getCategoryIcon` in `page.tsx` switches on the
+literal category name from `links.ts` and falls back to a generic link icon. A new category renders
+fine without touching the switch, it just gets the fallback icon - add a case there if it deserves
+its own.
 
-## The `pivoshenko.ui` Dependency
+**Everything visual comes from `pivoshenko.ui`** - React components, the Tailwind preset, the global
+stylesheet, and the Next.js metadata/icon/OG-image helpers. This repo owns almost no styling of its
+own; match the existing classes in `page.tsx` rather than reaching for raw Tailwind colors.
 
-Nearly all config and every component is inherited from `pivoshenko.ui`, pinned by git tag in `site/package.json` (`github:pivoshenko/pivoshenko.ui#v0.9.3`). Bumping it means changing that tag and re-running `just install`. Do not add local copies of things the package already provides.
+## Commands
 
-| File | Inherits |
-| --- | --- |
-| `site/biome.json` | `./node_modules/pivoshenko.ui/config/biome.json` |
-| `site/tsconfig.json` | `pivoshenko.ui/tsconfig.base.json` |
-| `site/tailwind.config.ts` | `pivoshenko.ui/tailwind-preset/site` + `withUiContent()` |
-| `site/postcss.config.mjs` | `pivoshenko.ui/postcss.config.mjs` (`postcss-import` runs before `tailwindcss`, so the `globals.css` import resolves at build) |
-| `site/next.config.ts` | `baseNextConfig` from `pivoshenko.ui/next/config` |
+`just --list` for the full set, `just check` is the pre-PR gate; `CONTRIBUTING.md` documents the
+rest. Always run `just` from the repository root - every recipe forwards to pnpm with `-C site`, so
+running pnpm from the root fails.
 
-`next.config.ts` is the one deliberate deviation: it spreads `baseNextConfig` and filters `X-Frame-Options: DENY` out of the shared `headers()`. Custom new-tab extensions embed this site in an iframe, so that header must not be sent. The other shared security headers (`X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`) are inherited unchanged - do not drop them while editing this file.
+The one surprising row: `just format` maps to the site's `check` script, not its `format` script -
+`pnpm check` is the one that both formats and applies safe lint fixes.
 
-`site/pnpm-workspace.yaml` carries security `overrides` (`postcss`, `js-yaml`, `sharp`) for advisories reaching the tree transitively. Remove an entry only once upstream floors the version itself.
-
-## Styling
-
-Single dark theme; no light mode, no `next-themes`. Use the semantic role classes rather than raw Tailwind colors:
-
-- Type: `type-heading`, `type-body`, `type-ui`, `type-label`, `type-meta`, `type-logo`
-- Foreground: `fg-primary`, `fg-secondary`, `fg-subtle`, `fg-muted`, `fg-body`
-- Surfaces/borders: `bg-bg-canvas`, `bg-bg-raised`, `border-ui`, `border-faint`
-- Accents: `text-accent-primary`, `accent-success`, `accent-danger`, ...
-
-These are `@layer components` classes in `pivoshenko.ui/ui/globals.css`, backed by RGB-triple CSS variables in `pivoshenko.ui/ui/tokens.css` scoped to `:root`. Both are vendored in the package and regenerated there (via `just vendor-theme-preset` in pivoshenko.ui); never edit them from this repo.
-
-## Conventions
-
-- Biome 1.9.4 handles lint, format, and import sorting: single quotes, double-quoted JSX attributes, no semicolons, trailing commas, 2-space indent, 80-char line width. `.editorconfig` says 120, but Biome's 80 wins for TS/TSX
-- Path alias `@/*` resolves to `site/`, not the repo root
-- Server components by default; anything needing `'use client'` lives in `pivoshenko.ui`
-- Node `>=24` enforced via `engines` plus `engine-strict=true` in `site/.npmrc`; package manager is pinned (`pnpm@10.30.3`)
-- Conventional commit subjects (`feat:`, `fix:`, `build(deps):`, `docs:`, `ci:`, `chore:`), optionally scoped
-- PRs follow `.github/PULL_REQUEST_TEMPLATE.md` (summary + self-review checklist)
-
-## Deployment
-
-Vercel project `pivoshenko.startpage`, team `pivoshenko`. Vercel's **Root Directory** must be `site` - `site/vercel.json` assumes it is the project root (`buildCommand: pnpm build`, `installCommand: pnpm install --frozen-lockfile`, `outputDirectory: .next`). Production branch `main`; previews on other branches. No environment variables are required; analytics and speed insights come from the Vercel integration.
+There are no tests; the `.no-tests` sentinel makes `just test` a deliberate no-op, and if you add
+tests, replace the `test` recipe and remove the sentinel in the same change.
