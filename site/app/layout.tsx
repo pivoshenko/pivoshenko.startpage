@@ -10,7 +10,7 @@ export const metadata = siteMetadata({
   url: 'https://startpage.pivoshenko.dev',
   brand: 'pivoshenko.startpage',
   title: 'pivoshenko.startpage',
-  titleTemplate: '%s — pivoshenko.startpage',
+  titleTemplate: '%s - pivoshenko.startpage',
   description: 'Personal startpage with quick links and daily resources.',
   ogTitle: 'Startpage',
   ogDescription:

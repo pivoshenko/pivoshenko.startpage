@@ -26,7 +26,7 @@ just test      # sentinel no-op; see below
 
 Direct equivalents: `pnpm -C site <script>` or `cd site && pnpm <script>`.
 
-There is no test framework and no dedicated typecheck script; `next build` is the type gate. `just test` succeeds only because the empty `.no-tests` sentinel file exists at the repo root and hard-fails otherwise — if tests are ever added, delete `.no-tests` and replace the `test` recipe.
+There is no test framework and no dedicated typecheck script; `next build` is the type gate. `just test` succeeds only because the empty `.no-tests` sentinel file exists at the repo root and hard-fails otherwise - if tests are ever added, delete `.no-tests` and replace the `test` recipe.
 
 CI (`.github/workflows/ci.yaml`, Node 24, `ubuntu-24.04-arm`) runs `just install && just lint && just test && just build`. It runs the same steps `just check` composes; `check` is read-only, and `just format` is what writes fixes.
 
@@ -34,11 +34,11 @@ CI (`.github/workflows/ci.yaml`, Node 24, `ubuntu-24.04-arm`) runs `just install
 
 One route, one data file. No API routes, no database, no auth, no client state.
 
-- `site/lib/links.ts` — all link data and the only file that normally changes. Shape: `WorkspaceTab[]` → `Category[]` → `LinkItem[]`. The "tab" layer is vestigial: `page.tsx` does `tabs.flatMap(tab => tab.categories)`, so tab names (`row-1`, `row-2`) only control ordering within the 3-column grid and are never rendered.
-- `site/app/page.tsx` — server component rendering each category as a `<Card>` from `pivoshenko.ui`. `getCategoryIcon()` maps category name → `lucide-react` icon via a hardcoded `switch`; an unmatched name silently falls back to `Link2` with no error, so a typo or a rename degrades quietly instead of failing. The switch is kept in exact sync with the categories in `links.ts` — adding or renaming a category means editing both files.
-- `site/app/layout.tsx` — thin wrapper over `SiteLayout` from `pivoshenko.ui/next/site-layout`, plus `siteMetadata(...)` / `siteViewport`. `<html>`/`<body>`, JetBrains Mono, `Nav`/`Footer`, and `@vercel/analytics` all live inside the shared layout; only `<SpeedInsights />` is wired locally through the `afterShell` prop.
-- `site/app/icon.tsx`, `site/app/opengraph-image.tsx` — re-export handlers from `pivoshenko.ui`. Their route-segment exports (`size`, `contentType`, `runtime`, `alt`) must stay as local literals; Next parses them statically and cannot follow them through the package.
-- `site/app/globals.css` — a single `@import "pivoshenko.ui/ui/globals.css"`.
+- `site/lib/links.ts` - all link data and the only file that normally changes. Shape: `WorkspaceTab[]` → `Category[]` → `LinkItem[]`. The "tab" layer is vestigial: `page.tsx` does `tabs.flatMap(tab => tab.categories)`, so tab names (`row-1`, `row-2`) only control ordering within the 3-column grid and are never rendered
+- `site/app/page.tsx` - server component rendering each category as a `<Card>` from `pivoshenko.ui`. `getCategoryIcon()` maps category name → `lucide-react` icon via a hardcoded `switch`; an unmatched name silently falls back to `Link2` with no error, so a typo or a rename degrades quietly instead of failing. The switch is kept in exact sync with the categories in `links.ts` - adding or renaming a category means editing both files
+- `site/app/layout.tsx` - thin wrapper over `SiteLayout` from `pivoshenko.ui/next/site-layout`, plus `siteMetadata(...)` / `siteViewport`. `<html>`/`<body>`, JetBrains Mono, `Nav`/`Footer`, and `@vercel/analytics` all live inside the shared layout; only `<SpeedInsights />` is wired locally through the `afterShell` prop
+- `site/app/icon.tsx`, `site/app/opengraph-image.tsx` - re-export handlers from `pivoshenko.ui`. Their route-segment exports (`size`, `contentType`, `runtime`, `alt`) must stay as local literals; Next parses them statically and cannot follow them through the package
+- `site/app/globals.css` - a single `@import "pivoshenko.ui/ui/globals.css"`
 
 ## The `pivoshenko.ui` Dependency
 
@@ -52,7 +52,7 @@ Nearly all config and every component is inherited from `pivoshenko.ui`, pinned 
 | `site/postcss.config.mjs` | `pivoshenko.ui/postcss.config.mjs` (`postcss-import` runs before `tailwindcss`, so the `globals.css` import resolves at build) |
 | `site/next.config.ts` | `baseNextConfig` from `pivoshenko.ui/next/config` |
 
-`next.config.ts` is the one deliberate deviation: it spreads `baseNextConfig` and filters `X-Frame-Options: DENY` out of the shared `headers()`. Custom new-tab extensions embed this site in an iframe, so that header must not be sent. The other shared security headers (`X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`) are inherited unchanged — do not drop them while editing this file.
+`next.config.ts` is the one deliberate deviation: it spreads `baseNextConfig` and filters `X-Frame-Options: DENY` out of the shared `headers()`. Custom new-tab extensions embed this site in an iframe, so that header must not be sent. The other shared security headers (`X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`) are inherited unchanged - do not drop them while editing this file.
 
 `site/pnpm-workspace.yaml` carries security `overrides` (`postcss`, `js-yaml`, `sharp`) for advisories reaching the tree transitively. Remove an entry only once upstream floors the version itself.
 
@@ -63,19 +63,19 @@ Single dark theme; no light mode, no `next-themes`. Use the semantic role classe
 - Type: `type-heading`, `type-body`, `type-ui`, `type-label`, `type-meta`, `type-logo`
 - Foreground: `fg-primary`, `fg-secondary`, `fg-subtle`, `fg-muted`, `fg-body`
 - Surfaces/borders: `bg-bg-canvas`, `bg-bg-raised`, `border-ui`, `border-faint`
-- Accents: `text-accent-primary`, `accent-success`, `accent-danger`, …
+- Accents: `text-accent-primary`, `accent-success`, `accent-danger`, ...
 
 These are `@layer components` classes in `pivoshenko.ui/ui/globals.css`, backed by RGB-triple CSS variables in `pivoshenko.ui/ui/tokens.css` scoped to `:root`. Both are vendored in the package and regenerated there (via `just vendor-theme-preset` in pivoshenko.ui); never edit them from this repo.
 
 ## Conventions
 
-- Biome 1.9.4 handles lint, format, and import sorting: single quotes, double-quoted JSX attributes, no semicolons, trailing commas, 2-space indent, 80-char line width. `.editorconfig` says 120, but Biome's 80 wins for TS/TSX.
-- Path alias `@/*` resolves to `site/`, not the repo root.
-- Server components by default; anything needing `'use client'` lives in `pivoshenko.ui`.
-- Node `>=24` enforced via `engines` plus `engine-strict=true` in `site/.npmrc`; package manager is pinned (`pnpm@10.30.3`).
-- Conventional commit subjects (`feat:`, `fix:`, `build(deps):`, `docs:`, `ci:`, `chore:`), optionally scoped.
-- PRs follow `.github/PULL_REQUEST_TEMPLATE.md` (summary + self-review checklist).
+- Biome 1.9.4 handles lint, format, and import sorting: single quotes, double-quoted JSX attributes, no semicolons, trailing commas, 2-space indent, 80-char line width. `.editorconfig` says 120, but Biome's 80 wins for TS/TSX
+- Path alias `@/*` resolves to `site/`, not the repo root
+- Server components by default; anything needing `'use client'` lives in `pivoshenko.ui`
+- Node `>=24` enforced via `engines` plus `engine-strict=true` in `site/.npmrc`; package manager is pinned (`pnpm@10.30.3`)
+- Conventional commit subjects (`feat:`, `fix:`, `build(deps):`, `docs:`, `ci:`, `chore:`), optionally scoped
+- PRs follow `.github/PULL_REQUEST_TEMPLATE.md` (summary + self-review checklist)
 
 ## Deployment
 
-Vercel project `pivoshenko.startpage`, team `pivoshenko`. Vercel's **Root Directory** must be `site` — `site/vercel.json` assumes it is the project root (`buildCommand: pnpm build`, `installCommand: pnpm install --frozen-lockfile`, `outputDirectory: .next`). Production branch `main`; previews on other branches. No environment variables are required; analytics and speed insights come from the Vercel integration.
+Vercel project `pivoshenko.startpage`, team `pivoshenko`. Vercel's **Root Directory** must be `site` - `site/vercel.json` assumes it is the project root (`buildCommand: pnpm build`, `installCommand: pnpm install --frozen-lockfile`, `outputDirectory: .next`). Production branch `main`; previews on other branches. No environment variables are required; analytics and speed insights come from the Vercel integration.
