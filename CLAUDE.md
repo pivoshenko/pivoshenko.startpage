@@ -14,13 +14,12 @@ Run from the repo root; `just` proxies into `site/` via `pnpm -C site`:
 
 ```bash
 just install   # pnpm install
-just dev       # next dev --turbopack
+just run-dev-server       # next dev --turbopack
 just build     # next build
 just lint      # biome lint .
-just format    # biome format . --write
-just check     # biome check . --write, then next build
-just audit     # pnpm audit (built-in pnpm command, no package.json script)
-just start     # build, then next start
+just format    # biome check . --write (format + lint autofix + import sort)
+just check     # lint + test + build (read-only)
+just run-prod-server     # build, then next start
 just update    # pnpm update
 just test      # sentinel no-op; see below
 ```
@@ -29,7 +28,7 @@ Direct equivalents: `pnpm -C site <script>` or `cd site && pnpm <script>`.
 
 There is no test framework and no dedicated typecheck script; `next build` is the type gate. `just test` succeeds only because the empty `.no-tests` sentinel file exists at the repo root and hard-fails otherwise — if tests are ever added, delete `.no-tests` and replace the `test` recipe.
 
-CI (`.github/workflows/ci.yaml`, Node 24, `ubuntu-24.04-arm`) runs `just install && just lint && just audit && just test && just build`. It runs `lint`, not `check` — `check` also writes formatting and is the stricter local gate. `just audit` runs `pnpm audit` with default settings, so any new advisory anywhere in the dependency tree breaks CI; the usual fix is another entry in `site/pnpm-workspace.yaml` `overrides`.
+CI (`.github/workflows/ci.yaml`, Node 24, `ubuntu-24.04-arm`) runs `just install && just lint && just test && just build`. It runs the same steps `just check` composes; `check` is read-only, and `just format` is what writes fixes.
 
 ## Architecture
 
@@ -66,7 +65,7 @@ Single dark theme; no light mode, no `next-themes`. Use the semantic role classe
 - Surfaces/borders: `bg-bg-canvas`, `bg-bg-raised`, `border-ui`, `border-faint`
 - Accents: `text-accent-primary`, `accent-success`, `accent-danger`, …
 
-These are `@layer components` classes in `pivoshenko.ui/ui/globals.css`, backed by RGB-triple CSS variables in `pivoshenko.ui/ui/tokens.css` scoped to `:root`. Both are vendored in the package and regenerated there (via `just vendor-preset` in pivoshenko.ui); never edit them from this repo.
+These are `@layer components` classes in `pivoshenko.ui/ui/globals.css`, backed by RGB-triple CSS variables in `pivoshenko.ui/ui/tokens.css` scoped to `:root`. Both are vendored in the package and regenerated there (via `just vendor-theme-preset` in pivoshenko.ui); never edit them from this repo.
 
 ## Conventions
 
