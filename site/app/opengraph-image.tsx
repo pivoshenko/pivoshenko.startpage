@@ -10,4 +10,5 @@ export default createOgImage({
   title: 'Startpage',
   subtitle: 'A minimal personal startpage with quick links and daily resources',
   domain: 'startpage.pivoshenko.dev',
+  accent: 'green',
 })
