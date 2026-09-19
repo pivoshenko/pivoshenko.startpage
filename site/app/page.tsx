@@ -36,6 +36,9 @@ export default function HomePage() {
               <h3 className="type-heading fg-subtle uppercase flex items-center gap-2">
                 <CategoryIcon name={category.name} />
                 {category.name}
+                <span className="rounded-full bg-bg-raised fg-subtle px-1.5 text-[11px] leading-[18px] normal-case">
+                  {category.links.length}
+                </span>
               </h3>
               <ul className="pt-1.5">
                 {category.links.map((link) => (
@@ -54,7 +57,7 @@ export default function HomePage() {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="focus-ring block rounded py-1 type-ui fg-secondary hover-primary transition-colors duration-fast"
+                      className="focus-ring block rounded py-1 type-ui fg-subtle hover-primary focus-visible:text-fg-default transition-colors duration-fast"
                     >
                       {link.name}
                     </a>

@@ -30,7 +30,6 @@ export default function RootLayout({
       accent="green"
       field="pixels"
       fieldTint="teal"
-      footerPattern={false}
       afterShell={<SpeedInsights />}
     >
       {children}
