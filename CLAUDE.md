@@ -20,7 +20,8 @@ edit the ref in `site/package.json` and re-run `just install`. For the design to
 API it provides, see `pivoshenko.ui`'s own `CLAUDE.md`.
 
 **The page opens with a `HeroBand`, then `PageBody` wraps the grid.** `main` has no width of its
-own, so the card grid needs `PageBody` for its gutter while the band stays full-bleed. The pixel
+own, so the link grid needs `PageBody` for its gutter while the band stays full-bleed. Each category
+is a tree: the trunk and its elbows are CSS hairlines on each `li`, never typed box-drawing glyphs. The pixel
 field behind the band and the footer is one site-level choice - `field="pixels"` on `SiteLayout`
 in `layout.tsx`, beside `accent="green"` - never set per component.
 
@@ -36,8 +37,10 @@ renders the flattened result into a 3-column grid, so a tab is really just a vis
 `row-1` / `row-2` names. There is no tab UI. Adding a fourth category to a row pushes it onto the
 next grid line rather than creating anything new.
 
-**Categories carry no icon.** The card header is an accent `//` and the category name from
-`links.ts`, so a new category needs nothing beyond its data entry.
+**Category icons are matched by name string.** `getCategoryIcon` in `page.tsx` switches on the
+literal category name from `links.ts` and falls back to a generic link icon. A new category renders
+fine without touching the switch, it just gets the fallback icon - add a case there if it deserves
+its own.
 
 **Everything visual comes from `pivoshenko.ui`** - React components, the Tailwind preset, the global
 stylesheet, and the Next.js metadata/icon/OG-image helpers. This repo owns almost no styling of its
