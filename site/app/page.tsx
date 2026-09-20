@@ -5,6 +5,7 @@ import {
   Link2,
   type LucideIcon,
   Newspaper,
+  Server,
   User,
   Users,
 } from 'lucide-react'
@@ -27,14 +28,14 @@ export default function HomePage() {
         lead="A minimal and fast personal startpage with curated quick links for daily browsing, development, and media."
       />
       <PageBody>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {categories.map((category) => (
             <section
               key={category.name}
-              className="rounded-lg border border-dashed border-ui p-4"
+              className="relative rounded-lg border border-dashed border-ui p-4"
             >
+              <CategoryIcon name={category.name} />
               <h3 className="type-heading fg-subtle uppercase flex items-center gap-2">
-                <CategoryIcon name={category.name} />
                 {category.name}
                 <span className="rounded-full bg-bg-raised fg-subtle px-1.5 text-[11px] leading-[18px] normal-case">
                   {category.links.length}
@@ -81,12 +82,16 @@ export default function HomePage() {
 function CategoryIcon({ name }: { name: string }) {
   const Icon = getCategoryIcon(name)
   return (
-    <Icon
-      size={16}
-      strokeWidth={2}
-      aria-hidden="true"
-      className="flex-none text-accent"
-    />
+    /* the filled square masks the dashed border it straddles, so the card's
+       top and right rules run into the icon instead of behind it */
+    <span className="absolute right-0 top-0 flex -translate-y-1/2 translate-x-1/2 rounded-sm border border-accent bg-accent p-1">
+      <Icon
+        size={16}
+        strokeWidth={2}
+        aria-hidden="true"
+        className="text-bg-canvas"
+      />
+    </span>
   )
 }
 
@@ -97,7 +102,7 @@ function getCategoryIcon(name: string): LucideIcon {
     case 'workspace':
       return Briefcase
     case 'platforms':
-      return Briefcase
+      return Server
     case 'development':
       return Code2
     case 'tech lead blogs':
