@@ -66,6 +66,15 @@ export const tabs: WorkspaceTab[] = [
             name: 'pragmaticengineer',
             url: 'https://blog.pragmaticengineer.com',
           },
+          { name: 'lethain', url: 'https://lethain.com' },
+          { name: 'staffeng', url: 'https://staffeng.com' },
+          { name: 'refactoring', url: 'https://refactoring.fm' },
+          { name: 'leaddev', url: 'https://leaddev.com' },
+          {
+            name: 'highgrowthengineer',
+            url: 'https://read.highgrowthengineer.com',
+          },
+          { name: 'martinfowler', url: 'https://martinfowler.com' },
         ],
       },
       {
