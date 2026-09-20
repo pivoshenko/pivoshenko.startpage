@@ -25,6 +25,12 @@ is a tree: the trunk and its elbows are CSS hairlines on each `li`, never typed 
 field behind the band and the footer is one site-level choice - `field="pixels"` on `SiteLayout`
 in `layout.tsx`, beside `accent="green"` - never set per component.
 
+**The category icon is seated on the card's top-right border corner.** It is an accent-filled
+square translated half out of the card, so it masks the dashed rule it straddles rather than
+sitting inside the padding. It overhangs the card edge by 13px and the grid's `gap-4` is what
+clears it - grow the icon or its padding and the gap has to grow with it, or the square will
+land on the neighbouring card.
+
 **All content lives in `site/lib/links.ts`.** Adding, removing, or reordering links is a data edit
 there, never a change to `page.tsx`. The shape is `WorkspaceTab -> Category -> LinkItem`.
 
