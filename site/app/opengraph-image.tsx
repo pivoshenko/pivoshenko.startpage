@@ -6,7 +6,7 @@ export const contentType = 'image/png'
 export const runtime = 'edge'
 
 export default createOgImage({
-  brand: 'pivoshenko.startpage',
+  brand: 'Volodymyr Pivoshenko',
   title: 'Startpage',
   subtitle: 'A minimal personal startpage with quick links and daily resources',
   domain: 'startpage.pivoshenko.dev',
