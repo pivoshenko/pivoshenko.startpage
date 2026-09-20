@@ -44,14 +44,20 @@ export default function HomePage() {
                 {category.links.map((link) => (
                   <li key={link.url} className="group relative pl-5">
                     {/* the trunk and its elbow are drawn rather than typed, so
-                        the rule lands on the pixel grid at any zoom */}
+                        the rule lands on the pixel grid at any zoom. the trunk
+                        is split at the elbow so hovering a link tints the run
+                        down to it and leaves the stretch below untouched */}
                     <span
                       aria-hidden="true"
-                      className="absolute left-1 top-0 -bottom-px w-px bg-border-subtle transition-colors duration-fast group-hover:bg-accent group-focus-within:bg-accent [li:has(~li:hover)_&]:bg-accent [li:has(~li:focus-within)_&]:bg-accent group-last:bottom-auto group-last:h-3.5"
+                      className="absolute left-1 top-0 h-3.5 w-px bg-border-subtle transition-colors duration-fast group-hover:bg-accent group-focus-within:bg-accent [li:has(~li:hover)_&]:bg-accent [li:has(~li:focus-within)_&]:bg-accent"
                     />
                     <span
                       aria-hidden="true"
-                      className="absolute left-[5px] top-3.5 h-px w-[9px] bg-border-subtle transition-colors duration-fast group-hover:bg-accent group-focus-within:bg-accent [li:has(~li:hover)_&]:bg-accent [li:has(~li:focus-within)_&]:bg-accent"
+                      className="absolute left-1 top-3.5 -bottom-px w-px bg-border-subtle transition-colors duration-fast [li:has(~li:hover)_&]:bg-accent [li:has(~li:focus-within)_&]:bg-accent group-last:hidden"
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-1 top-3.5 h-px w-[10px] bg-border-subtle transition-colors duration-fast group-hover:bg-accent group-focus-within:bg-accent [li:has(~li:hover)_&]:bg-accent [li:has(~li:focus-within)_&]:bg-accent"
                     />
                     <a
                       href={link.url}
