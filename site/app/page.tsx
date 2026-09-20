@@ -35,9 +35,12 @@ export default function HomePage() {
               className="relative rounded-lg border border-dashed border-ui p-4"
             >
               <CategoryIcon name={category.name} />
-              <h3 className="type-heading fg-subtle uppercase flex items-center gap-2">
+              <h3 className="type-display text-base fg-title capitalize flex items-center gap-2">
+                <span aria-hidden="true" className="tracking-normal text-accent">
+                  {'//'}
+                </span>
                 {category.name}
-                <span className="rounded-full bg-bg-raised fg-subtle px-1.5 text-[11px] leading-[18px] normal-case">
+                <span className="rounded-full bg-bg-raised fg-subtle px-1.5 text-[11px] leading-[18px]">
                   {category.links.length}
                 </span>
               </h3>
