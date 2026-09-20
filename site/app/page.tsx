@@ -18,6 +18,7 @@ export default function HomePage() {
     <>
       <HeroBand
         field="pixels"
+        tint="teal"
         title={
           <>
             <span className="fg-title">pivoshenko</span>
