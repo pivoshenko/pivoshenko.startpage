@@ -67,7 +67,7 @@ This project uses [`just`](https://github.com/casey/just) as its task runner. Ru
 | --- | --- |
 | `just install` | Installs the site's dependencies with pnpm |
 | `just format` | Formats the site and applies Biome's safe lint fixes in place |
-| `just lint` | Lints the site with Biome without changing files |
+| `just lint` | Lints the site with Biome and typechecks it without changing files |
 | `just test` | No-op while the `.no-tests` sentinel file is present; without it the recipe fails, prompting you to add tests |
 | `just build` | Builds the production Next.js bundle |
 | `just check` | Runs `lint`, `test`, and `build` in sequence - the full local gate |

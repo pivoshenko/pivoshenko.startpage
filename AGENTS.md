@@ -58,8 +58,7 @@ own; match the existing classes in `page.tsx` rather than reaching for raw Tailw
 rest. Always run `just` from the repository root - every recipe forwards to pnpm with `-C site`, so
 running pnpm from the root fails.
 
-The one surprising row: `just format` maps to the site's `check` script, not its `format` script -
-`pnpm check` is the one that both formats and applies safe lint fixes.
+The one surprising row: `just format` runs `biome check --write`, so it both formats and applies safe lint fixes.
 
 There are no tests; the `.no-tests` sentinel makes `just test` a deliberate no-op, and if you add
 tests, replace the `test` recipe and remove the sentinel in the same change.
