@@ -37,7 +37,10 @@ export default function HomePage() {
             >
               <CategoryIcon name={category.name} />
               <h3 className="type-display text-base fg-title capitalize flex items-center gap-2">
-                <span aria-hidden="true" className="tracking-normal text-accent">
+                <span
+                  aria-hidden="true"
+                  className="tracking-normal text-accent"
+                >
                   {'//'}
                 </span>
                 {category.name}
